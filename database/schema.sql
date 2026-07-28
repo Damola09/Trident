@@ -200,9 +200,6 @@ CREATE TRIGGER trg_indexed_contracts_updated_at
 CREATE TRIGGER trg_api_keys_updated_at
     BEFORE UPDATE ON api_keys
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-CREATE TRIGGER trg_webhook_subscriptions_updated_at
-    BEFORE UPDATE ON webhook_subscriptions
-    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 -- ---------------------------------------------------------------------------
 -- webhook_subscriptions
@@ -219,6 +216,10 @@ CREATE TABLE IF NOT EXISTS webhook_subscriptions (
     paused_at    TIMESTAMPTZ,
     network      TEXT        NOT NULL DEFAULT 'testnet'
 );
+
+CREATE TRIGGER trg_webhook_subscriptions_updated_at
+    BEFORE UPDATE ON webhook_subscriptions
+    FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 CREATE TABLE IF NOT EXISTS webhook_deliveries (
     id              BIGSERIAL   PRIMARY KEY,
